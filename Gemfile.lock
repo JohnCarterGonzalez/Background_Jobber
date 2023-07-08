@@ -1,0 +1,25 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    date (3.3.3)
+    nokogiri (1.15.3-arm64-darwin)
+      racc (~> 1.4)
+    open-uri (0.3.0)
+      stringio
+      time
+      uri
+    racc (1.7.1)
+    stringio (3.0.7)
+    time (0.2.2)
+      date
+    uri (0.12.2)
+
+PLATFORMS
+  arm64-darwin-22
+
+DEPENDENCIES
+  nokogiri (~> 1.15)
+  open-uri
+
+BUNDLED WITH
+   2.4.13
