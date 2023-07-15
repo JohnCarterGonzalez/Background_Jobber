@@ -14,7 +14,7 @@ module BackgroundJobber
 
 
     def serialize_the_obj
-      job_obj = [@class_name, @args]::YAML.dump(job_obj)
+      job_obj = [@class_name, @args]; YAML.dump(job_obj)
     end
 
 
