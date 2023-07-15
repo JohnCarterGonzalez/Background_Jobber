@@ -9,7 +9,7 @@ module BackgroundJobber
     end
 
     def deserialize_job(job)
-      ::YAML.load(job)
+      ::YAML.unsafe_load(job)
     end
 
     # continously checks for jobs in a queue by calling pop on the
@@ -21,12 +21,13 @@ module BackgroundJobber
         current_serialized_job = @cache.pop(queue_name)
 
         break if current_serialized_job.nil?
-
-        current_job_components = deserialize_job(current_serialized_job)
-
-        job_class = current_job_components.first
-        job_args = current_job_components.last  
-
+          # rewrote this section of code to make it slightly more readable and testable.
+          # I also added a check to see if the job is an array, if it is, it passes the args
+          # as an array, if not, it passes the args as a single arg
+        class_name, args = deserialize_job(job)
+        job_class = Object.const_get(class_name)
+        job_args = args.is_a?(Array) ? args : [args]  
+        
         job_class.new.perform(*job_args)
       end
     end
