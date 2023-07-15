@@ -12,16 +12,12 @@ module BackgroundJobber
       @cache = Cache::RedisWrapper.new
     end
 
-
     def serialize_the_obj
       job_obj = [@class_name, @args]; YAML.dump(job_obj)
     end
 
-
     def push_to_cache(queue_name = 'default')
       @cache.push(queue_name, serialize_the_obj)
     end
-
   end
-
 end
