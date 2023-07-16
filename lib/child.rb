@@ -1,9 +1,21 @@
 module BackgroundJobber
   class Child
-    def spawn_worker
+
+    # spawn worker thread
+    def spawn_worker(queue_name = 'default', child_process_id)
       Thread.new do
-        worker = Worker.new
-        worker.poll
+        begin
+          worker = Worker.new
+          worker.poll(queue_name, child_process_id)
+        rescue => e
+          puts "Worker thread error: #{e.message}"
+        end
+      end
+    end
+
+    def join_threads(threads)
+      threads.each do |thread|
+        thread.join
       end
     end
   end
