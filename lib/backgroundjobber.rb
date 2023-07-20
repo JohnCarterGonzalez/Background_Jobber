@@ -4,6 +4,8 @@ require 'pry-byebug'
 require_relative 'job'
 require_relative 'cache'
 require_relative 'worker'
+require_relative 'child'
+require_relative 'parent'
 
 
 # entry into BackgroundJobber, going to be verbose in the comments because 
@@ -17,10 +19,11 @@ module BackgroundJobber
   class Runner
     def self.run(opts)
       job = Job.new(opts[:class_name], opts[:args])
-      job.push_to_cache
-
-      worker = Worker.new
-      worker.poll
+      50.times do
+        job.push_to_cache
+      end
+      parent = Parent.new
+      parent.spawn_child_loop(5)
     end
   end
 
