@@ -20,3 +20,9 @@
 - add a better README.md, 
 - isolate background job processing 
 - add threads for job processing
+
+7.24.2023
+## Isolated Job Processing and Test functions
+- Added a manager class to control queue flow via a blpop method that includes timeouts and worker instants
+- isolated test processes
+
