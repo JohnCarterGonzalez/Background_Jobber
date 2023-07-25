@@ -15,7 +15,7 @@ module BackgroundJobber
       end
 
 
-      def push(key)
+      def push(key, value)
         redis.rpush(key, value)
       end
 

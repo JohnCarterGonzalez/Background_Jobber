@@ -5,7 +5,6 @@ require_relative 'job'
 require_relative 'cache'
 require_relative 'worker'
 
-
 # entry into BackgroundJobber, going to be verbose in the comments because 
 # this is me learning how a background system works, and I want to write my
 # thought process out
@@ -15,12 +14,12 @@ module BackgroundJobber
   # push on the job object, which adds the serialized job
   # to the cache 
   class Runner
-    def self.run(opts)
-      job = Job.new(opts[:class_name], opts[:args])
+    def self.run(options)
+      job = Job.new(options[:classification], options[:args])
       job.push_to_cache
 
       worker = Worker.new
-      worker.poll
+      worker.poll_for_jobs
     end
   end
 

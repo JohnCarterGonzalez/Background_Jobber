@@ -1,3 +1,4 @@
+require_relative 'classifications'
 module BackgroundJobber 
 
   # Worker class, reponsible for creating the cache, and polling that 
@@ -9,14 +10,14 @@ module BackgroundJobber
     end
 
     def deserialize_job(job)
-      ::YAML.load(job)
+      ::YAML.unsafe_load(job)
     end
 
     # continously checks for jobs in a queue by calling pop on the
     # cache obj, breaks if the queue is empty, if there are jobs
     # it deserializes the job_components, extracting the class and args
     # creates a new instance of the job class and calls perform passing the *args
-    def poll(queue_name= 'default')
+    def poll_for_jobs(queue_name= 'default')
       loop do
         current_serialized_job = @cache.pop(queue_name)
 
@@ -27,9 +28,11 @@ module BackgroundJobber
         job_class = current_job_components.first
         job_args = current_job_components.last  
 
-        job_class.new.perform(*job_args)
+        #job_class.new.perform(*job_args)
+        Classifications.send(job_class, *job_args)
       end
     end
 
   end
 end
+
