@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+require_relative 'queue'
+require 'yaml'
+
 
 module BackgroundJobber
 

@@ -15,13 +15,12 @@ module BackgroundJobber
       end
 
 
-      def push(key)
+      def push(key, value)
         redis.rpush(key, value)
       end
 
-      def flush
-        redis.flushdb
-      end
+      def blpop(key, timeout = 0)
+        redis.blpop(key, timeout)
     end
   end
 end
