@@ -6,15 +6,15 @@ module BackgroundJobber
 # is responsible for serializing and pushing the job to the cache 
 # RedisWrapper
   class Job
-    def initialize(classification, args)
-      @classification = classification
+    def initialize(class_name, args)
+      @class_name = class_name
       @args = args
       @cache = Cache::RedisWrapper.new
     end
 
 # Serializes the ruby object into a YAML string
     def serialize_the_obj
-      job_obj = [@classification, @args]
+      job_obj = [@class_name, @args]
       YAML.dump(job_obj)
     end
 

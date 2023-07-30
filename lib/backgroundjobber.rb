@@ -14,12 +14,12 @@ module BackgroundJobber
   # push on the job object, which adds the serialized job
   # to the cache 
   class Runner
-    def self.run(options)
-      job = Job.new(options[:classification], options[:args])
+    def self.run(opts)
+      job = Job.new(opts[:class_name], opts[:args])
       job.push_to_cache
 
       worker = Worker.new
-      worker.poll_for_jobs
+      worker.poll
     end
   end
 

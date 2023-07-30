@@ -17,7 +17,7 @@ module BackgroundJobber
     # cache obj, breaks if the queue is empty, if there are jobs
     # it deserializes the job_components, extracting the class and args
     # creates a new instance of the job class and calls perform passing the *args
-    def poll_for_jobs(queue_name= 'default')
+    def poll(queue_name= 'default')
       loop do
         current_serialized_job = @cache.pop(queue_name)
 
