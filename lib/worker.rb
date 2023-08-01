@@ -10,7 +10,7 @@ module BackgroundJobber
     end
 
     def deserialize_job(job)
-      ::YAML.load(job)
+      ::YAML.unsafe_load(job)
     end
 
     # continously checks for jobs in a queue by calling pop on the

@@ -8,6 +8,7 @@ module BackgroundJobber
   # is responsible for serializing and pushing the job to the cache
   # RedisWrapper
   class Job
+
     def perform_async(*args)
       Queue.enqueue(serialized(self.class, args))
     end
@@ -16,6 +17,7 @@ module BackgroundJobber
       job_obj = [@class_name, @args]
       ::YAML.dump(job_obj)
     end
-
+    
   end
+  
 end

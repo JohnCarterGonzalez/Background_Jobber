@@ -12,4 +12,6 @@ require_relative '../app_test/job_test'
 # entry into BackgroundJobber, going to be verbose in the comments because
 # this is me learning how a background system works, and I want to write my
 # thought process out
+
 BackgroundJobber::Manager.poll
+
