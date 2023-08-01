@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../app_test/job'
 
 class JobTest
@@ -8,4 +10,4 @@ class JobTest
   end
 end
 
-JobTest.new.perform_async("hello world")
+JobTest.new.perform_async('hello world')

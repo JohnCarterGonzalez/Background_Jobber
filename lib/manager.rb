@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'cache'
 require_relative 'worker'
 
@@ -6,9 +8,9 @@ module BackgroundJobber
     @cache = Cache::RedisWrapper.new
     @worker = Worker.new
 
-    def self.blpoll(queue_name = 'default')
+    def self.poll(queue_name = 'default')
       loop do
-        serialized_job = @cache.blpop(queue_name, 0).last
+        serialized_job = @cache.pop(queue_name, 0).last
         @worker.work(serialized_job)
       end
     end
